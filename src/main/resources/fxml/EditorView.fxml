@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.VBox?>
+<BorderPane xmlns:fx="http://javafx.com/fxml/1" prefHeight="460.0" prefWidth="716.0"
+            xmlns="http://javafx.com/javafx/11.0.1">
+    <top>
+        <VBox prefWidth="600.0" BorderPane.alignment="CENTER">
+            <MenuBar>
+                <Menu fx:id="editor" mnemonicParsing="true" text="%editor">
+                    <items>
+                        <MenuItem fx:id="save" mnemonicParsing="true" onAction="#onSaveCall" text="%save"/>
+                        <MenuItem fx:id="compile" mnemonicParsing="true" onAction="#onCompileCall" text="%compile"/>
+                        <MenuItem fx:id="close" mnemonicParsing="true" onAction="#onCloseCall" text="%close"/>
+                    </items>
+                </Menu>
+            </MenuBar>
+            <ToolBar prefHeight="40.0" prefWidth="200.0">
+                <Button maxHeight="36.0" maxWidth="36.0" minHeight="36.0" minWidth="36.0" mnemonicParsing="false"
+                        onAction="#onSaveCall" prefHeight="36.0" prefWidth="36.0">
+                    <graphic>
+                        <ImageView fitHeight="36.0" fitWidth="36.0" pickOnBounds="true" preserveRatio="true">
+                            <image>
+                                <Image url="@../img/icons/save.png"/>
+                            </image>
+                        </ImageView>
+                    </graphic>
+                </Button>
+
+                <Button maxHeight="36.0" maxWidth="36.0" minHeight="36.0" minWidth="36.0" mnemonicParsing="false"
+                        onAction="#onCompileCall" prefHeight="36.0" prefWidth="36.0">
+                    <graphic>
+                        <ImageView fitHeight="36.0" fitWidth="36.0" pickOnBounds="true" preserveRatio="false">
+                            <image>
+                                <Image url="@../img/icons/compiler.png"/>
+                            </image>
+                        </ImageView>
+                    </graphic>
+                </Button>
+            </ToolBar>
+        </VBox>
+    </top>
+    <center>
+        <TextArea fx:id="textArea" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER"/>
+    </center>
+</BorderPane>

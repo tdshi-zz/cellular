@@ -1,0 +1,613 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.input.*?>
+<?import javafx.scene.layout.*?>
+<BorderPane xmlns:fx="http://javafx.com/fxml/1" pickOnBounds="false" prefHeight="713.0" prefWidth="840.0"
+            xmlns="http://javafx.com/javafx/11.0.1">
+    <top>
+        <VBox prefHeight="75.0" BorderPane.alignment="CENTER">
+            <HBox prefHeight="35.0">
+                <MenuBar prefHeight="35.0">
+                    <menus>
+                        <Menu fx:id="automaton_title" text="%automat">
+                            <items>
+                                <MenuItem fx:id="menu_new" mnemonicParsing="true" onAction="#newAutomatonCall"
+                                          text="%new">
+                                    <accelerator>
+                                        <KeyCodeCombination alt="UP" code="N" control="DOWN" meta="UP" shift="UP"
+                                                            shortcut="UP"/>
+                                    </accelerator>
+                                </MenuItem>
+                                <MenuItem fx:id="menu_load" mnemonicParsing="true" onAction="#loadAutomatonCall"
+                                          text="%load">
+                                    <accelerator>
+                                        <KeyCodeCombination alt="UP" code="L" control="DOWN" meta="UP" shift="UP"
+                                                            shortcut="UP"/>
+                                    </accelerator>
+                                </MenuItem>
+                                <SeparatorMenuItem mnemonicParsing="false"/>
+                                <MenuItem fx:id="menu_editor" onAction="#openEditorCall" text="%editor">
+                                    <accelerator>
+                                        <KeyCodeCombination alt="UP" code="E" control="DOWN" meta="UP" shift="UP"
+                                                            shortcut="UP"/>
+                                    </accelerator>
+                                </MenuItem>
+                                <SeparatorMenuItem mnemonicParsing="false"/>
+                                <MenuItem fx:id="menu_close" onAction="#onCloseCall" text="%close">
+                                    <accelerator>
+                                        <KeyCodeCombination alt="UP" code="Q" control="DOWN" meta="UP" shift="UP"
+                                                            shortcut="UP"/>
+                                    </accelerator>
+                                </MenuItem>
+                            </items>
+                        </Menu>
+                        <Menu fx:id="population_title" mnemonicParsing="false" text="%population">
+                            <items>
+                                <MenuItem fx:id="menu_size" onAction="#changeSizeCall" text="%change_size">
+                                    <accelerator>
+                                        <KeyCodeCombination alt="UP" code="G" control="DOWN" meta="UP" shift="DOWN"
+                                                            shortcut="UP"/>
+                                    </accelerator>
+                                </MenuItem>
+                                <MenuItem fx:id="menu_delete" mnemonicParsing="true" onAction="#resetToZeroCall"
+                                          text="%delete">
+                                    <accelerator>
+                                        <KeyCodeCombination alt="UP" code="L" control="DOWN" meta="UP" shift="DOWN"
+                                                            shortcut="UP"/>
+                                    </accelerator>
+                                </MenuItem>
+                                <MenuItem fx:id="menu_create" mnemonicParsing="true" onAction="#randomPopulationCall"
+                                          text="%create">
+                                    <accelerator>
+                                        <KeyCodeCombination alt="UP" code="Z" control="DOWN" meta="UP" shift="DOWN"
+                                                            shortcut="UP"/>
+                                    </accelerator>
+                                </MenuItem>
+                                <CheckMenuItem fx:id="menu_toggle" mnemonicParsing="true" onAction="#torusCall"
+                                               text="%torus">
+                                    <accelerator>
+                                        <KeyCodeCombination alt="UP" code="T" control="DOWN" meta="UP" shift="DOWN"
+                                                            shortcut="UP"/>
+                                    </accelerator>
+                                </CheckMenuItem>
+                                <SeparatorMenuItem mnemonicParsing="false"/>
+                                <MenuItem fx:id="menu_bigger" mnemonicParsing="true" onAction="#plusMagnifyingGlassCall"
+                                          text="%resize_plus">
+                                    <accelerator>
+                                        <KeyCodeCombination alt="UP" code="I" control="DOWN" meta="UP" shift="DOWN"
+                                                            shortcut="UP"/>
+                                    </accelerator>
+                                </MenuItem>
+                                <MenuItem fx:id="menu_smaller" mnemonicParsing="true"
+                                          onAction="#minusMagnifyingGlassCall"
+                                          text="%resize_minus">
+                                    <accelerator>
+                                        <KeyCodeCombination alt="UP" code="O" control="DOWN" meta="UP" shift="DOWN"
+                                                            shortcut="UP"/>
+                                    </accelerator>
+                                </MenuItem>
+                                <SeparatorMenuItem mnemonicParsing="false"/>
+                                <Menu fx:id="save_title" text="%save">
+                                    <items>
+                                        <MenuItem fx:id="menu_xml_save" mnemonicParsing="true" onAction="#saveXML"
+                                                  text="%xml">
+                                            <accelerator>
+                                                <KeyCodeCombination alt="UP" code="X" control="DOWN" meta="UP"
+                                                                    shift="DOWN" shortcut="UP"/>
+                                            </accelerator>
+                                        </MenuItem>
+                                        <MenuItem fx:id="menu_serial_save" mnemonicParsing="true" onAction="#saveSerial"
+                                                  text="%serial">
+                                            <accelerator>
+                                                <KeyCodeCombination alt="UP" code="S" control="DOWN" meta="UP"
+                                                                    shift="DOWN" shortcut="UP"/>
+                                            </accelerator>
+                                        </MenuItem>
+                                    </items>
+                                </Menu>
+                                <Menu fx:id="load_title" mnemonicParsing="true" text="%load">
+                                    <items>
+                                        <MenuItem fx:id="menu_xml_load" mnemonicParsing="true" onAction="#loadXML"
+                                                  text="%xml">
+                                            <accelerator>
+                                                <KeyCodeCombination alt="DOWN" code="X" control="DOWN" meta="UP"
+                                                                    shift="DOWN" shortcut="UP"/>
+                                            </accelerator>
+                                        </MenuItem>
+                                        <MenuItem fx:id="menu_serial_load" mnemonicParsing="true" onAction="#loadSerial"
+                                                  text="%serial">
+                                            <accelerator>
+                                                <KeyCodeCombination alt="DOWN" code="S" control="DOWN" meta="UP"
+                                                                    shift="DOWN" shortcut="UP"/>
+                                            </accelerator>
+                                        </MenuItem>
+                                    </items>
+                                </Menu>
+                                <SeparatorMenuItem mnemonicParsing="false"/>
+                                <MenuItem fx:id="menu_print" mnemonicParsing="true" onAction="#print" text="%print">
+                                    <accelerator>
+                                        <KeyCodeCombination alt="UP" code="P" control="DOWN" meta="UP" shift="UP"
+                                                            shortcut="UP"/>
+                                    </accelerator>
+                                </MenuItem>
+                            </items>
+                        </Menu>
+
+                        <Menu fx:id="simulation_title" mnemonicParsing="true" text="%simul">
+                            <items>
+                                <MenuItem fx:id="menu_sim_step" mnemonicParsing="true" onAction="#nextGenerationCall"
+                                          text="%step">
+                                    <accelerator>
+                                        <KeyCodeCombination alt="DOWN" code="S" control="DOWN" meta="UP" shift="UP"
+                                                            shortcut="UP"/>
+                                    </accelerator>
+                                </MenuItem>
+                                <SeparatorMenuItem mnemonicParsing="false"/>
+                                <MenuItem fx:id="menu_sim_start" onAction="#startSimulationCall" text="%start">
+                                    <accelerator>
+                                        <KeyCodeCombination alt="DOWN" code="A" control="DOWN" meta="UP" shift="UP"
+                                                            shortcut="UP"/>
+                                    </accelerator>
+                                </MenuItem>
+                                <MenuItem fx:id="menu_sim_stop" mnemonicParsing="true" disable="true"
+                                          onAction="#stopSimulationCall"
+                                          text="%stop">
+                                    <accelerator>
+                                        <KeyCodeCombination alt="DOWN" code="O" control="DOWN" meta="UP" shift="UP"
+                                                            shortcut="UP"/>
+                                    </accelerator>
+                                </MenuItem>
+                            </items>
+                        </Menu>
+                        <Menu fx:id="settings_title" mnemonicParsing="true" text="%settings">
+                            <items>
+                                <MenuItem fx:id="saveSetting" mnemonicParsing="true" onAction="#saveSettingsCall"
+                                          text="%save"/>
+                                <MenuItem fx:id="restoreSetting" mnemonicParsing="true" onAction="#restoreSettingsCall"
+                                          text="%restore"/>
+                                <MenuItem fx:id="deleteSetting" mnemonicParsing="true" onAction="#deleteSettingsCall"
+                                          text="%delete"/>
+                            </items>
+                        </Menu>
+                        <Menu fx:id="language" mnemonicParsing="true" text="%languag">
+                            <items>
+                                <MenuItem fx:id="en" mnemonicParsing="true" onAction="#changeLanguage"
+                                          text="%english"/>
+                                <MenuItem fx:id="de" mnemonicParsing="true" onAction="#changeLanguage" text="%german"/>
+                            </items>
+                        </Menu>
+                        <Menu fx:id="communication" mnemonicParsing="true" text="%communication">
+                            <items>
+                                <MenuItem fx:id="sendAutomaton" mnemonicParsing="true" onAction="#sendAutomatonCall"
+                                          text="%send_automaton" visible="false"/>
+                                <MenuItem fx:id="receiveAutomaton" mnemonicParsing="true"
+                                          onAction="#receiveAutomatonCall" text="%receive_automaton" visible="false"/>
+                            </items>
+                        </Menu>
+                        <Menu fx:id="help_title" mnemonicParsing="true" text="%help">
+                            <items>
+                                <MenuItem fx:id="menu_first_steps" mnemonicParsing="true" onAction="#firstStepsCall"
+                                          text="%first_steps">
+                                    <accelerator>
+                                        <KeyCodeCombination alt="UP" code="E" control="UP" meta="UP" shift="DOWN"
+                                                            shortcut="UP"/>
+                                    </accelerator>
+                                </MenuItem>
+                                <MenuItem fx:id="menu_about" mnemonicParsing="true" onAction="#aboutCall" text="%about">
+                                    <accelerator>
+                                        <KeyCodeCombination alt="UP" code="A" control="UP" meta="UP" shift="DOWN"
+                                                            shortcut="UP"/>
+                                    </accelerator>
+                                </MenuItem>
+                            </items>
+                        </Menu>
+                    </menus>
+                    <HBox.margin>
+                        <Insets/>
+                    </HBox.margin>
+                    <cursor>
+                        <Cursor fx:constant="DEFAULT"/>
+                    </cursor>
+                </MenuBar>
+            </HBox>
+            <HBox prefHeight="45.0">
+                <cursor>
+                    <Cursor fx:constant="HAND"/>
+                </cursor>
+                <ToolBar prefHeight="45.0">
+                    <Button fx:id="button1" mnemonicParsing="false" onAction="#newAutomatonCall">
+                        <tooltip>
+                            <Tooltip text="%tooltip_new"/>
+                        </tooltip>
+                        <graphic>
+                            <ImageView pickOnBounds="true" preserveRatio="true">
+                                <image>
+                                    <Image url="@../img/icons/new_file.png"/>
+                                </image>
+                            </ImageView>
+                        </graphic>
+                    </Button>
+                    <Button fx:id="button2" mnemonicParsing="false" onAction="#loadAutomatonCall">
+                        <tooltip>
+                            <Tooltip text="%tooltip_load"/>
+                        </tooltip>
+                        <graphic>
+                            <ImageView pickOnBounds="true" preserveRatio="true">
+                                <image>
+                                    <Image url="@../img/icons/save.png"/>
+                                </image>
+                            </ImageView>
+                        </graphic>
+                    </Button>
+                    <Button fx:id="button3" mnemonicParsing="false" onAction="#changeSizeCall">
+                        <tooltip>
+                            <Tooltip text="%tooltip_size"/>
+                        </tooltip>
+
+                        <graphic>
+                            <ImageView pickOnBounds="true" preserveRatio="true">
+                                <image>
+                                    <Image url="@../img/icons/change_size.png"/>
+                                </image>
+                            </ImageView>
+                        </graphic>
+                    </Button>
+                    <Button fx:id="button4" mnemonicParsing="false" onAction="#resetToZeroCall">
+                        <tooltip>
+                            <Tooltip text="%tooltip_reset"/>
+                        </tooltip>
+                        <graphic>
+                            <ImageView pickOnBounds="true" preserveRatio="true">
+                                <image>
+                                    <Image url="@../img/icons/close.png"/>
+                                </image>
+                            </ImageView>
+                        </graphic>
+
+                    </Button>
+                    <Button fx:id="button5" mnemonicParsing="false" onAction="#randomPopulationCall">
+                        <tooltip>
+                            <Tooltip text="%tooltip_random"/>
+                        </tooltip>
+                        <graphic>
+                            <ImageView pickOnBounds="true" preserveRatio="true">
+                                <image>
+                                    <Image url="@../img/icons/random.png"/>
+                                </image>
+                            </ImageView>
+                        </graphic>
+
+                    </Button>
+                    <ToggleButton fx:id="toggleButton" mnemonicParsing="false" onAction="#torusCall">
+                        <tooltip>
+                            <Tooltip text="%tooltip_torus"/>
+                        </tooltip>
+                        <graphic>
+                            <ImageView pickOnBounds="true" preserveRatio="true">
+                                <image>
+                                    <Image url="@../img/icons/recycle.png"/>
+                                </image>
+                            </ImageView>
+                        </graphic>
+                    </ToggleButton>
+
+                    <Button fx:id="button6" mnemonicParsing="false" onAction="#print">
+                        <tooltip>
+                            <Tooltip text="%tooltip_print"/>
+                        </tooltip>
+                        <graphic>
+                            <ImageView pickOnBounds="true" preserveRatio="true">
+                                <image>
+                                    <Image url="@../img/icons/printer.png"/>
+                                </image>
+                            </ImageView>
+                        </graphic>
+
+                    </Button>
+                    <Button fx:id="button7" mnemonicParsing="false" onAction="#plusMagnifyingGlassCall">
+                        <tooltip>
+                            <Tooltip text="%resize_plus"/>
+                        </tooltip>
+                        <graphic>
+                            <ImageView pickOnBounds="true" preserveRatio="true">
+                                <image>
+                                    <Image url="@../img/icons/glass1.png"/>
+                                </image>
+                            </ImageView>
+                        </graphic>
+
+                    </Button>
+                    <Button fx:id="button8" mnemonicParsing="false" onAction="#minusMagnifyingGlassCall">
+                        <tooltip>
+                            <Tooltip text="%resize_minus"/>
+                        </tooltip>
+                        <graphic>
+                            <ImageView pickOnBounds="true" preserveRatio="true">
+                                <image>
+                                    <Image url="@../img/icons/glass2.png"/>
+                                </image>
+                            </ImageView>
+                        </graphic>
+
+                    </Button>
+                    <Button fx:id="button9" mnemonicParsing="false" onAction="#nextGenerationCall">
+                        <tooltip>
+                            <Tooltip text="%tooltip_single_Step"/>
+                        </tooltip>
+
+                        <graphic>
+                            <ImageView pickOnBounds="true" preserveRatio="true">
+                                <image>
+                                    <Image url="@../img/icons/resume.png"/>
+                                </image>
+                            </ImageView>
+                        </graphic>
+
+                    </Button>
+                    <Button fx:id="button10" mnemonicParsing="false" onAction="#startSimulationCall">
+                        <tooltip>
+                            <Tooltip text="%tooltip_start"/>
+                        </tooltip>
+                        <graphic>
+                            <ImageView pickOnBounds="true" preserveRatio="true">
+                                <image>
+                                    <Image url="@../img/icons/play.png"/>
+                                </image>
+                            </ImageView>
+                        </graphic>
+
+                    </Button>
+                    <Button fx:id="button11" disable="true" mnemonicParsing="false" onAction="#stopSimulationCall">
+                        <tooltip>
+                            <Tooltip text="%tooltip_stop"/>
+                        </tooltip>
+
+                        <graphic>
+                            <ImageView pickOnBounds="true" preserveRatio="true">
+                                <image>
+                                    <Image url="@../img/icons/stop.png"/>
+                                </image>
+                            </ImageView>
+                        </graphic>
+                    </Button>
+                    <Slider fx:id="slider" blockIncrement="1.0" majorTickUnit="50.0" onMouseReleased="#sliderCall"
+                            showTickLabels="true" showTickMarks="true" value="50.0">
+                        <tooltip>
+                            <Tooltip text="%tooltip_speed"/>
+                        </tooltip>
+                        <opaqueInsets>
+                            <Insets/>
+                        </opaqueInsets>
+                    </Slider>
+                </ToolBar>
+            </HBox>
+        </VBox>
+    </top>
+    <center>
+        <ScrollPane fx:id="scrollPane" onContextMenuRequested="#contextCall"
+                    onMousePressed="#mousePressedOnPopulationPanel" onMouseReleased="#mouseReleasedOnPopulationPanel"
+                    prefHeight="590.0" prefWidth="590.0" BorderPane.alignment="CENTER"/>
+    </center>
+    <left>
+        <ScrollPane prefHeight="613.0" prefWidth="203.0" BorderPane.alignment="CENTER">
+            <VBox fillWidth="false" prefWidth="199.0" snapToPixel="false">
+                <padding>
+                    <Insets bottom="20.0" top="65.0"/>
+                </padding>
+                <HBox prefHeight="30.0" prefWidth="200.0" spacing="25.0">
+                    <children>
+                        <RadioButton fx:id="radio1" mnemonicParsing="false" onAction="#toggleSelectedChangeCall"
+                                     selected="true" text="0">
+                            <HBox.margin>
+                                <Insets top="5.0"/>
+                            </HBox.margin>
+                        </RadioButton>
+                        <ColorPicker fx:id="color1" onAction="#colorPickerCall"/>
+                    </children>
+                    <opaqueInsets>
+                        <Insets/>
+                    </opaqueInsets>
+                    <VBox.margin>
+                        <Insets bottom="15.0" right="15.0" top="2.0"/>
+                    </VBox.margin>
+                    <padding>
+                        <Insets bottom="2.0" left="15.0" right="15.0" top="2.0"/>
+                    </padding>
+                </HBox>
+
+                <HBox prefHeight="30.0" prefWidth="200.0" spacing="25.0">
+                    <children>
+                        <RadioButton fx:id="radio2" mnemonicParsing="false" onAction="#toggleSelectedChangeCall"
+                                     text="1">
+                            <HBox.margin>
+                                <Insets top="5.0"/>
+                            </HBox.margin>
+                        </RadioButton>
+                        <ColorPicker fx:id="color2" onAction="#colorPickerCall">
+                        </ColorPicker>
+                    </children>
+                    <opaqueInsets>
+                        <Insets/>
+                    </opaqueInsets>
+                    <VBox.margin>
+                        <Insets bottom="15.0" right="15.0" top="2.0"/>
+                    </VBox.margin>
+                    <padding>
+                        <Insets bottom="2.0" left="15.0" right="15.0" top="2.0"/>
+                    </padding>
+                </HBox>
+                <HBox prefHeight="30.0" prefWidth="200.0" spacing="25.0">
+                    <children>
+                        <RadioButton fx:id="radio3" mnemonicParsing="false" onAction="#toggleSelectedChangeCall"
+                                     text="2" visible="false">
+                            <HBox.margin>
+                                <Insets top="5.0"/>
+                            </HBox.margin>
+                        </RadioButton>
+                        <ColorPicker fx:id="color3" onAction="#colorPickerCall" visible="false"/>
+                    </children>
+                    <opaqueInsets>
+                        <Insets/>
+                    </opaqueInsets>
+                    <VBox.margin>
+                        <Insets bottom="15.0" right="15.0" top="2.0"/>
+                    </VBox.margin>
+                    <padding>
+                        <Insets bottom="2.0" left="15.0" right="15.0" top="2.0"/>
+                    </padding>
+                </HBox>
+                <HBox prefHeight="30.0" prefWidth="200.0" spacing="25.0">
+                    <children>
+                        <RadioButton fx:id="radio4" mnemonicParsing="false" onAction="#toggleSelectedChangeCall"
+                                     text="3" visible="false">
+                            <HBox.margin>
+                                <Insets top="5.0"/>
+                            </HBox.margin>
+                        </RadioButton>
+                        <ColorPicker fx:id="color4" onAction="#colorPickerCall" visible="false"/>
+                    </children>
+                    <opaqueInsets>
+                        <Insets/>
+                    </opaqueInsets>
+                    <VBox.margin>
+                        <Insets bottom="15.0" right="15.0" top="2.0"/>
+                    </VBox.margin>
+                    <padding>
+                        <Insets bottom="2.0" left="15.0" right="15.0" top="2.0"/>
+                    </padding>
+                </HBox>
+                <HBox prefHeight="30.0" prefWidth="200.0" spacing="25.0">
+                    <children>
+                        <RadioButton fx:id="radio5" mnemonicParsing="false" onAction="#toggleSelectedChangeCall"
+                                     text="4" visible="false">
+                            <HBox.margin>
+                                <Insets top="5.0"/>
+                            </HBox.margin>
+                        </RadioButton>
+                        <ColorPicker fx:id="color5" onAction="#colorPickerCall" visible="false"/>
+                    </children>
+                    <opaqueInsets>
+                        <Insets/>
+                    </opaqueInsets>
+                    <VBox.margin>
+                        <Insets bottom="15.0" right="15.0" top="2.0"/>
+                    </VBox.margin>
+                    <padding>
+                        <Insets bottom="2.0" left="15.0" right="15.0" top="2.0"/>
+                    </padding>
+                </HBox>
+                <HBox prefHeight="30.0" prefWidth="200.0" spacing="25.0">
+                    <children>
+                        <RadioButton fx:id="radio6" mnemonicParsing="false" onAction="#toggleSelectedChangeCall"
+                                     text="5" visible="false">
+                            <HBox.margin>
+                                <Insets top="5.0"/>
+                            </HBox.margin>
+                        </RadioButton>
+                        <ColorPicker fx:id="color6" onAction="#colorPickerCall" visible="false"/>
+                    </children>
+                    <opaqueInsets>
+                        <Insets/>
+                    </opaqueInsets>
+                    <VBox.margin>
+                        <Insets bottom="15.0" right="15.0" top="2.0"/>
+                    </VBox.margin>
+                    <padding>
+                        <Insets bottom="2.0" left="15.0" right="15.0" top="2.0"/>
+                    </padding>
+                </HBox>
+                <HBox prefHeight="30.0" prefWidth="200.0" spacing="25.0">
+                    <children>
+                        <RadioButton fx:id="radio7" mnemonicParsing="false" onAction="#toggleSelectedChangeCall"
+                                     text="6" visible="false">
+                            <HBox.margin>
+                                <Insets top="5.0"/>
+                            </HBox.margin>
+                        </RadioButton>
+                        <ColorPicker fx:id="color7" onAction="#colorPickerCall" visible="false"/>
+                    </children>
+                    <opaqueInsets>
+                        <Insets/>
+                    </opaqueInsets>
+                    <VBox.margin>
+                        <Insets bottom="15.0" right="15.0" top="2.0"/>
+                    </VBox.margin>
+                    <padding>
+                        <Insets bottom="2.0" left="15.0" right="15.0" top="2.0"/>
+                    </padding>
+                </HBox>
+                <HBox prefHeight="30.0" prefWidth="200.0" spacing="25.0">
+                    <children>
+                        <RadioButton fx:id="radio8" mnemonicParsing="false" onAction="#toggleSelectedChangeCall"
+                                     text="7" visible="false">
+                            <HBox.margin>
+                                <Insets top="5.0"/>
+                            </HBox.margin>
+                        </RadioButton>
+                        <ColorPicker fx:id="color8" onAction="#colorPickerCall" visible="false"/>
+                    </children>
+                    <opaqueInsets>
+                        <Insets/>
+                    </opaqueInsets>
+                    <VBox.margin>
+                        <Insets bottom="15.0" right="15.0" top="2.0"/>
+                    </VBox.margin>
+                    <padding>
+                        <Insets bottom="2.0" left="15.0" right="15.0" top="2.0"/>
+                    </padding>
+                </HBox>
+                <HBox prefHeight="30.0" prefWidth="200.0" spacing="25.0">
+                    <children>
+                        <RadioButton fx:id="radio9" mnemonicParsing="false" onAction="#toggleSelectedChangeCall"
+                                     text="8" visible="false">
+                            <HBox.margin>
+                                <Insets top="5.0"/>
+                            </HBox.margin>
+                        </RadioButton>
+                        <ColorPicker fx:id="color9" onAction="#colorPickerCall" visible="false"/>
+                    </children>
+                    <opaqueInsets>
+                        <Insets/>
+                    </opaqueInsets>
+                    <VBox.margin>
+                        <Insets bottom="15.0" right="15.0" top="2.0"/>
+                    </VBox.margin>
+                    <padding>
+                        <Insets bottom="2.0" left="15.0" right="15.0" top="2.0"/>
+                    </padding>
+                </HBox>
+                <HBox prefHeight="30.0" prefWidth="200.0" spacing="25.0">
+                    <children>
+                        <RadioButton fx:id="radio10" mnemonicParsing="false" onAction="#toggleSelectedChangeCall"
+                                     text="9" visible="false">
+                            <HBox.margin>
+                                <Insets top="5.0"/>
+                            </HBox.margin>
+                        </RadioButton>
+                        <ColorPicker fx:id="color10" onAction="#colorPickerCall" visible="false"/>
+                    </children>
+                    <opaqueInsets>
+                        <Insets/>
+                    </opaqueInsets>
+                    <VBox.margin>
+                        <Insets bottom="15.0" right="15.0" top="2.0"/>
+                    </VBox.margin>
+                    <padding>
+                        <Insets bottom="2.0" left="15.0" right="15.0" top="2.0"/>
+                    </padding>
+                </HBox>
+            </VBox>
+        </ScrollPane>
+    </left>
+    <bottom>
+        <Label fx:id="footer" text="\%footer" BorderPane.alignment="CENTER_LEFT">
+            <BorderPane.margin>
+                <Insets left="15.0"/>
+            </BorderPane.margin>
+        </Label>
+    </bottom>
+</BorderPane>
